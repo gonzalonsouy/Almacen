@@ -1,0 +1,50 @@
+﻿@page
+@model Almacen.Pages.Producto.ModificarModel
+@{
+    ViewData["Title"] = "Modificar Producto";
+}
+<div class="text-left">
+    <h1 class="display-4 text-center">Modificar un Producto</h1>
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input class="form-control" type="text" name="id" id="id" value="@Model.producto.Id" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="@Model.producto.Nombre" />
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <input class="form-control" type="text" name="tipo" id="tipo" value="@Model.producto.Tipo" />
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input class="form-control" type="number" name="stock" id="stock" value="@Model.producto.Stock" />
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input class="form-control" type="number" name="precio" id="precio" value="@Model.producto.Precio" />
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="mt-2">
+                <button class="btn btn-success" type="submit" asp-page-handler="Modificar">Modificar</button>
+                <a class="btn btn-warning" asp-page="./Listar">Volver</a>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <br />
+        <div class="alert alert-danger" role="alert">
+            @Model.Mensaje
+        </div>
+    }
+</div>

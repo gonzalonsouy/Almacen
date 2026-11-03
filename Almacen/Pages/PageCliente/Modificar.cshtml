@@ -1,0 +1,50 @@
+﻿@page
+@model Almacen.Pages.PageCliente.ModificarModel
+@{
+    ViewData["Title"] = "Modificar Cliente";
+}
+<div class="text-left">
+    <h1 class="display-4 text-center">Modificar un Cliente</h1>
+    <hr />
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input class="form-control" type="text" name="id" id="id" value="@Model.cliente.Id" readonly/>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" type="text" name="nombre" id="nombre" value="@Model.cliente.Nombre" />
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input class="form-control" type="text" name="apellido" id="apellido" value="@Model.cliente.Apellido" />
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input class="form-control" type="text" name="direccion" id="direccion" value="@Model.cliente.Direccion" />
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input class="form-control" type="text" name="telefono" id="telefono" value="@Model.cliente.Telefono" />
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="mt-2">
+                <button class="btn btn-success" type="submit" asp-page-handler="Modificar">Modificar</button>
+                <a class="btn btn-warning" asp-page="./Listar">Volver</a>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.Mensaje))
+    {
+        <br />
+        <div class="alert alert-danger" role="alert">
+            @Model.Mensaje
+        </div>
+    }
+</div>

@@ -1,0 +1,56 @@
+﻿@page
+@model Almacen.Pages.PageVenta.ListarModel
+@{
+    ViewData["Title"] = "Listado de Ventas";
+}
+<div>
+    <h1 class="display-4 text-center">Listado de Ventas</h1>
+    <div class="row">
+        <div class="col text-right">
+            <a class="btn btn-success" asp-page="./Alta">Agregar</a>
+        </div>
+    </div>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Ventas != null && Model.Ventas.Any())
+            {
+                @foreach(Dominio.Venta unaVenta in Model.Ventas)
+                {
+                    <tr>
+                        <td>@unaVenta.Id</td>
+                        <td>@unaVenta.Fecha</td>
+                        <td>@unaVenta.Cliente.Nombre @unaVenta.Cliente.Apellido</td>
+                        <td>@unaVenta.Total</td>
+                        <td>
+                            <div>
+                                @* <a class="btn btn-primary" asp-page="./Modificar" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a> *@
+                                <a class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No hay Ventas ingresadas
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

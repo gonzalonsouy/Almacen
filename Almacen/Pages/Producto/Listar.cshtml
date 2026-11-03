@@ -1,0 +1,58 @@
+﻿@page
+@model Almacen.Pages.Producto.ListarModel
+@{
+    ViewData["Title"] = "Listado de Productos";
+}
+<div>
+    <h1 class="display-4 text-center">Listado de Productos</h1>
+    <div class="row">
+        <div class="col text-right">
+            <a class="btn btn-success" asp-page="./Alta">Agregar</a>
+        </div>
+    </div>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Stock</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model.Productos != null && Model.Productos.Any())
+            {
+                @foreach(Dominio.Producto unProd in Model.Productos)
+                {
+                    <tr>
+                        <td>@unProd.Id</td>
+                        <td>@unProd.Nombre</td>
+                        <td>@unProd.Tipo</td>
+                        <td>@unProd.Stock</td>
+                        <td>@unProd.Precio</td>
+                        <td>
+                            <div>
+                                <a class="btn btn-primary" asp-page="./Modificar" asp-route-id="@unProd.Id">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                <a class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@unProd.Id">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No hay Productos ingresados
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
