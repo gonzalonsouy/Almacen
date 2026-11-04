@@ -4,7 +4,7 @@
     ViewData["Title"] = "Agregar Venta";
 }
 <div class="text-left">
-    <h1 class="display-4 text-center">Agregar un Venta</h1>
+    <h1 class="display-4 text-center">Agregar una Venta</h1>
     <hr />
     <form method="post">
         <div class="row">
@@ -13,10 +13,14 @@
                     <label for="id">ID:</label>
                     <input class="form-control" type="text" name="id" id="id" />
                 </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
                     <input class="form-control" type="date" name="fecha" id="fecha" />
                 </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
                     <select class="form-control" id="idCliente" name="idCliente">
@@ -25,7 +29,7 @@
                             {
                                 <option value="@unCliente.Id">@unCliente.Nombre @unCliente.Apellido</option>
                             }
-                        </select>
+                    </select>
                 </div>
             </div>
         </div>
