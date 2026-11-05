@@ -44,7 +44,7 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="producto">Producto:</label>
-                    <select class="form-control" id="idProducto" name="idProducto">
+                    <select class="form-control" id="idProducto" name="idProducto" onchange="CargarPrecio()">
                         <option value="">Seleccione un Producto</option>
                         @foreach (Dominio.Producto unProducto in Model.Productos)
                         {
@@ -56,7 +56,7 @@
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="precio">Precio:</label>
-                    <input class="form-control" type="number" name="precio" id="precio" readonly />
+                    <input class="form-control" type="number" name="precio" id="precio" value="@Model.producto.Precio" readonly />
                 </div>
             </div>
             <div class="col-sm-2">
@@ -125,7 +125,7 @@
             <div class="col-sm-2 text-right">
                 <div class="form-group">
                     <label for="total">Total:</label>
-                    <input class="form-control" type="number" name="total" id="total" readonly />
+                    <input class="form-control" type="number" name="total" id="total" value="@Model.total" readonly />
                 </div>
             </div>
         </div>

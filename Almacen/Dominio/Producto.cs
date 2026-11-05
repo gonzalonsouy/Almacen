@@ -22,5 +22,9 @@
             aStock = pStock;
             aPrecio = pPrecio;
         }
+        public Producto()
+        {
+         
+        }
     }
 }

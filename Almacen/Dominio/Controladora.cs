@@ -5,6 +5,7 @@
         private static List<Producto> aListaProductos = new List<Producto>();
         private static List<Cliente> aListaClientes = new List<Cliente>();
         private static List<Venta> aListaVentas = new List<Venta>();
+        private static List<LineaVenta> aListaLineasVenta = new List<LineaVenta>();
 
         #region Productos
 
@@ -116,6 +117,16 @@
         {
             return aListaVentas;
         }
+        public List<LineaVenta> ListarLineasVenta()
+        {
+            return aListaLineasVenta;
+        }
+        public bool AltaLineaVenta(LineaVenta pLineaVenta)
+        {
+            aListaLineasVenta.Add(pLineaVenta);
+            return true;
+        }
+
         public Venta BuscarVenta(int pId)
         {
             foreach (Venta unVenta in aListaVentas)
