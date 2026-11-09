@@ -22,6 +22,13 @@
             aLineasVenta = pLineasVenta;
             aTotal = pTotal;
         }
-
+        public Venta()
+        {
+            aId = 0;
+            aFecha = DateTime.Now;
+            aCliente = new Cliente();
+            aLineasVenta = new List<LineaVenta>();
+            aTotal = 0;
+        }
     }
 }

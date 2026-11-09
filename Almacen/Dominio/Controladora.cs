@@ -126,6 +126,10 @@
             aListaLineasVenta.Add(pLineaVenta);
             return true;
         }
+        public void LimpiarLineasVenta()
+        {
+            aListaLineasVenta.Clear();
+        }
 
         public Venta BuscarVenta(int pId)
         {
@@ -144,6 +148,7 @@
             if (ComparoVenta == null)
             {
                 aListaVentas.Add(pVenta);
+                LimpiarLineasVenta();
                 return true;
             }
             return false;
@@ -172,5 +177,16 @@
         //    return false;
         //}
         #endregion
+
+        public void CargarDatosIniciales()
+        {
+            // Cargar productos
+            aListaProductos.Add(new Producto(1, "Producto 1", "Tipo A", 10, 100.0));
+            aListaProductos.Add(new Producto(2, "Producto 2", "Tipo B", 5, 200.0));
+            aListaProductos.Add(new Producto(3, "Producto 3", "Tipo A", 8, 150.0));
+            // Cargar clientes
+            aListaClientes.Add(new Cliente(1, "Juan", "Pérez", "Calle Falsa 123", "123456789"));
+            aListaClientes.Add(new Cliente(2, "María", "Gómez", "Avenida Siempre Viva 456", "987654321"));
+        }
     }
 }

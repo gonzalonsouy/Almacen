@@ -22,5 +22,13 @@
             aDireccion = pDireccion;
             aTelefono= pTelefono;
         }
+        public Cliente()
+        {
+            aId = 0;
+            aNombre = "";
+            aApellido = "";
+            aDireccion = "";
+            aTelefono = "";
+        }
     }
 }

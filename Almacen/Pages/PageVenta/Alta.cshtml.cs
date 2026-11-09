@@ -11,15 +11,44 @@ namespace Almacen.Pages.PageVenta
         public List<Dominio.Producto> Productos { get; set; }
         public List<LineaVenta> LineasVenta { get; set; }
         public string Mensaje { get; set; } = "";
-        public string idCliente { get; set; } = "";
-        public string idProducto { get; set; } = "";
-        public double total { get; set; } = 0;
+        [BindProperty] public Venta Venta { get; set; }
+        [BindProperty] public int idCliente { get; set; }
+        [BindProperty] public int idProducto { get; set; }
+        [BindProperty] public int idLinea { get; set; }
+        [BindProperty] public double Precio { get; set; }
+        [BindProperty] public int Cantidad { get; set; }
+        [BindProperty] public double SubTotal { get; set; }
+        [BindProperty] public double Total { get; set; }
         public Dominio.Producto producto { get; set; } = new Dominio.Producto();
+        public IActionResult OnPostCargarPrecio()
+        {
+            Controladora unaControladora = new Controladora();
+            Dominio.Producto unProd = unaControladora.BuscarProducto(idProducto);
+            
+            if(unProd != null)
+            {
+                Precio = unProd.Precio;
+            }
+            
+            CargarDatos();
+
+            return Page();
+        }
+        public IActionResult OnPostCalcularSubTotal()
+        {
+            if (Precio != 0)
+            {
+                SubTotal = Precio * Cantidad;
+            }
+            CargarDatos();
+            return Page();
+        }
         public void OnGet()
         {
+            Venta = new Venta();
+            idLinea = 1;
             CargarDatos();
         }
-
         private void CargarDatos()
         {
             Controladora unaControladora = new Controladora();
@@ -30,17 +59,24 @@ namespace Almacen.Pages.PageVenta
         public IActionResult OnPostAgregarLinea()
         {
             Controladora unaControladora = new Controladora();
-            int pIdProducto = int.Parse(Request.Form["idProducto"]);
-            int pCantidad = int.Parse(Request.Form["cantidad"]);
-            int idLinea = int.Parse(Request.Form["idLinea"]);
-
-            Dominio.Producto unProducto = unaControladora.BuscarProducto(pIdProducto);
+            
+            Dominio.Producto unProducto = unaControladora.BuscarProducto(idProducto);
             if (unProducto != null)
             {
-                double subTotal = unProducto.Precio * pCantidad;
-                LineaVenta nuevaLinea = new LineaVenta(idLinea, unProducto, pCantidad, subTotal);
+                LineaVenta nuevaLinea = new LineaVenta(idLinea, unProducto, Cantidad, SubTotal);
                 unaControladora.AltaLineaVenta(nuevaLinea);
-                total += subTotal;
+                Total += SubTotal;
+                idLinea+=1;
+                idProducto = 0;
+                Precio = 0;
+                Cantidad = 0;
+                SubTotal = 0;
+
+                ModelState.Remove("idLinea");
+                ModelState.Remove("idProducto");
+                ModelState.Remove("Precio");
+                ModelState.Remove("Cantidad");
+                ModelState.Remove("SubTotal");
             }
             else
             {
@@ -49,15 +85,24 @@ namespace Almacen.Pages.PageVenta
             CargarDatos();
             return Page();
         }
-        public void CargarPrecio()
+        public IActionResult OnPostAgregarVenta()
         {
             Controladora unaControladora = new Controladora();
-            int pIdProducto = int.Parse(Request.Form["idProducto"]);
-            
-            if(pIdProducto > 0)
+            Cliente unCliente = unaControladora.BuscarCliente(idCliente);
+            Venta.Cliente = unCliente;
+            Venta.LineasVenta = unaControladora.ListarLineasVenta();
+            Venta.Total = Total;
+
+            if (unaControladora.AltaVenta(Venta))
             {
-                Dominio.Producto producto = unaControladora.BuscarProducto(pIdProducto);
+                Mensaje = "La venta se ha registrado correctamente.";
             }
+            else
+            {
+                Mensaje = "Error al grabar la Venta";
+            }
+            return Redirect("/PageVenta/Listar");
         }
+
     }
 }

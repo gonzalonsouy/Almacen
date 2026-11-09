@@ -11,19 +11,19 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="id">ID:</label>
-                    <input class="form-control" type="text" name="id" id="id" />
+                    <input class="form-control" type="text" name="Id" id="Id" asp-for="Venta.Id" />
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="fecha">Fecha:</label>
-                    <input class="form-control" type="date" name="fecha" id="fecha" />
+                    <input class="form-control" type="date" name="Fecha" id="Fecha" asp-for="Venta.Fecha" />
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="cliente">Cliente:</label>
-                    <select class="form-control" id="idCliente" name="idCliente">
+                    <select class="form-control" id="idCliente" name="idCliente" asp-for="idCliente">
                         <option value="">Seleccione un Cliente</option>
                             @foreach (Dominio.Cliente unCliente in Model.Clientes)
                             {
@@ -38,41 +38,43 @@
             <div class="col-sm-1">
                 <div class="form-group">
                     <label for="idLinea">ID:</label>
-                    <input class="form-control" type="text" name="idLinea" id="idLinea" />
+                    <input class="form-control" type="text" name="idLinea" id="idLinea" asp-for="idLinea"/>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="producto">Producto:</label>
-                    <select class="form-control" id="idProducto" name="idProducto" onchange="CargarPrecio()">
+                    <select class="form-control" id="idProducto" name="idProducto" asp-for="idProducto" onchange="document.getElementById('btnPrecio').click();">
                         <option value="">Seleccione un Producto</option>
                         @foreach (Dominio.Producto unProducto in Model.Productos)
                         {
                             <option value="@unProducto.Id">@unProducto.Nombre</option>
                         }
                     </select>
+                    <button id="btnPrecio" type="submit" asp-page-handler="CargarPrecio" hidden></button>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="precio">Precio:</label>
-                    <input class="form-control" type="number" name="precio" id="precio" value="@Model.producto.Precio" readonly />
+                    <input class="form-control" type="number" name="precio" id="precio" value="@Model.Precio" readonly />
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="cantidad">Cantidad:</label>
-                    <input class="form-control" type="number" name="cantidad" id="cantidad" />
+                    <input class="form-control" type="number" name="cantidad" id="cantidad" asp-for="Cantidad" onchange="document.getElementById('btnSubTotal').click();" />
+                    <button id="btnSubTotal" type="submit" asp-page-handler="CalcularSubTotal" hidden></button>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
                     <label for="subtotal">SubTotal:</label>
-                    <input class="form-control" type="number" name="subtotal" id="subtotal" readonly />
+                    <input class="form-control" type="number" name="subtotal" id="subtotal" value="@Model.SubTotal" readonly />
                 </div>
             </div>
             <div class="col-sm-1" style="margin-top: 24px;">
-                <button class="btn btn-success" type="submit" asp-page-handler="AgregarLinea">Agregar</button>
+                <button class="btn btn-info" type="submit" asp-page-handler="AgregarLinea">Agregar</button>
             </div>
         </div>
         
@@ -125,7 +127,7 @@
             <div class="col-sm-2 text-right">
                 <div class="form-group">
                     <label for="total">Total:</label>
-                    <input class="form-control" type="number" name="total" id="total" value="@Model.total" readonly />
+                    <input class="form-control" type="number" name="total" id="total" value="@Model.Total" readonly />
                 </div>
             </div>
         </div>
@@ -133,7 +135,7 @@
         <div class="row">
             <div class="col-sm-10"></div>
             <div class="col-sm-2 text-right">
-                <button class="btn btn-info" type="submit" asp-page-handler="AgregarLinea">Agregar</button>
+                <button class="btn btn-success" type="submit" asp-page-handler="AgregarVenta">Guardar</button>
                 <a class="btn btn-warning" asp-page="./Listar">Volver</a>
             </div>
         </div>
