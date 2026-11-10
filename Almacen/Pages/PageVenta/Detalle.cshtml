@@ -1,0 +1,68 @@
+﻿@page
+@model Almacen.Pages.PageVenta.DetalleModel
+@{
+    ViewData["Title"] = "Detalle Venta";
+}
+<div class="text left">
+    <h1 class="display-4 text-center">Detalle Venta</h1>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.venta.Fecha.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Cliente.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.venta.Cliente.Nombre @Model.venta.Cliente.Apellido
+        </dd>
+    </dl>
+    <hr />
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>SubTotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (Dominio.LineaVenta unaLinea in Model.venta.LineasVenta)
+                {
+                    <tr>
+                        <td>@unaLinea.Id</td>
+                        <td>@unaLinea.Producto.Nombre</td>
+                        <td>@unaLinea.Producto.Precio</td>
+                        <td>@unaLinea.Cantidad</td>
+                        <td>@unaLinea.SubTotal</td>
+                    </tr>
+                }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">
+                    <strong>Total:</strong>
+                </td>
+                <td>@Model.venta.Total</td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr />
+        <div class="row">
+            <div class="mt-2">
+                <a class="btn btn-warning" asp-page="./Listar">Volver</a>
+            </div>
+        </div>
+</div>

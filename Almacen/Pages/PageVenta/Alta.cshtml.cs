@@ -90,7 +90,7 @@ namespace Almacen.Pages.PageVenta
             Controladora unaControladora = new Controladora();
             Cliente unCliente = unaControladora.BuscarCliente(idCliente);
             Venta.Cliente = unCliente;
-            Venta.LineasVenta = unaControladora.ListarLineasVenta();
+            Venta.LineasVenta = new List<LineaVenta>(unaControladora.ListarLineasVenta());
             Venta.Total = Total;
 
             if (unaControladora.AltaVenta(Venta))

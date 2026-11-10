@@ -1,4 +1,52 @@
 ﻿@page
 @model Almacen.Pages.PageVenta.EliminarModel
 @{
+    ViewData["Title"] = "Eliminar Venta";
 }
+<div class="text left">
+    <h1 class="display-4 text-center">Eliminar Venta</h1>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Fecha.ToShortDateString())
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Cliente.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Cliente.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Cliente.Apellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Cliente.Apellido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.venta.Total)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.venta.Total)
+        </dd>
+    </dl>
+    <hr />
+
+    <form method="post">
+        <input type="hidden" name="id" value="@Model.venta.Id" />
+        <div class="row">
+            <div class="mt-2">
+                <button type="submit" asp-page-handler="Eliminar" class="btn btn-danger">Eliminar</button>
+                <a class="btn btn-warning" asp-page="./Listar">Volver</a>
+            </div>
+        </div>
+    </form>
+</div>

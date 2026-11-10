@@ -32,9 +32,9 @@
                         <td>@unaVenta.Total</td>
                         <td>
                             <div>
-                                @* <a class="btn btn-primary" asp-page="./Modificar" asp-route-id="@unaVenta.Id">
-                                    <i class="fa fa-edit" aria-hidden="true"></i>
-                                    </a> *@
+                                <a class="btn btn-primary" asp-page="./Detalle" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
                                 <a class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@unaVenta.Id">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </a>
