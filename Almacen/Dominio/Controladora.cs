@@ -85,6 +85,7 @@ namespace Almacen.Dominio
             }
             return null;
         }
+
         public bool AltaCliente(Cliente pCliente)
         {
             Cliente ComparoCliente = BuscarCliente(pCliente.Id);
