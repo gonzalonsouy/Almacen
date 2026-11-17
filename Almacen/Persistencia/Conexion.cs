@@ -6,7 +6,7 @@ namespace Almacen.Persistencia
 {
     public class Conexion
     {
-        private static string source = "localhost";
+        private static string source = "(localdb)\\MSSQLLocalDB";
         private static string baseDatos = "Almacen";
         private static string cadenaConexion = "Data Source="+source+
             ";Initial Catalog="+baseDatos+";Integrated Security=SSPI; Encrypt=False";
@@ -29,7 +29,7 @@ namespace Almacen.Persistencia
                 throw new Exception("Error en la conexion SQL : " + sql, e);
             }
         }
-        public DataSet Consulta(string sql)
+        public DataSet Consultar(string sql)
         {
             try
             {

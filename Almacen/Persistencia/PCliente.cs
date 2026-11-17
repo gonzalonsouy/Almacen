@@ -11,7 +11,7 @@ namespace Almacen.Persistencia
         {
             string sql = "SELECT * FROM Cliente";
 
-            DataSet datos = Conexion.Consulta(sql);
+            DataSet datos = Conexion.Consultar(sql);
 
             List<Cliente> lista = new List<Cliente>();
 
@@ -57,7 +57,7 @@ namespace Almacen.Persistencia
         public int ProximoId()
         {
             string sql = "SELECT (ISNULL(MAX(id),0)+1) FROM cliente";
-            DataSet datos = Conexion.Consulta(sql);
+            DataSet datos = Conexion.Consultar(sql);
             DataRowCollection filas = datos.Tables[0].Rows;
             var campo = filas[0];
             int Id = int.Parse(campo[0].ToString());

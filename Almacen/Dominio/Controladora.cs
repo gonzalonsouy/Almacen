@@ -1,11 +1,19 @@
-﻿namespace Almacen.Dominio
+﻿using Almacen.Persistencia;
+
+namespace Almacen.Dominio
 {
     public class Controladora
     {
+        private PControladora Persistencia;
         private static List<Producto> aListaProductos = new List<Producto>();
         private static List<Cliente> aListaClientes = new List<Cliente>();
         private static List<Venta> aListaVentas = new List<Venta>();
         private static List<LineaVenta> aListaLineasVenta = new List<LineaVenta>();
+
+        public Controladora()
+        {
+            Persistencia = new PControladora();
+        }
 
         #region Productos
 
@@ -63,6 +71,7 @@
 
         public List<Cliente> ListarClientes()
         {
+            aListaClientes = Persistencia.ListaClientes();
             return aListaClientes;
         }
         public Cliente BuscarCliente(int pId)
@@ -81,8 +90,11 @@
             Cliente ComparoCliente = BuscarCliente(pCliente.Id);
             if (ComparoCliente == null)
             {
-                aListaClientes.Add(pCliente);
-                return true;
+                if (Persistencia.AltaCliente(pCliente))
+                {
+                    aListaClientes.Add(pCliente);
+                    return true;
+                }
             }
             return false;
         }
@@ -181,12 +193,12 @@
         public void CargarDatosIniciales()
         {
             // Cargar productos
-            aListaProductos.Add(new Producto(1, "Producto 1", "Tipo A", 10, 100.0));
-            aListaProductos.Add(new Producto(2, "Producto 2", "Tipo B", 5, 200.0));
-            aListaProductos.Add(new Producto(3, "Producto 3", "Tipo A", 8, 150.0));
-            // Cargar clientes
-            aListaClientes.Add(new Cliente(1, "Juan", "Pérez", "Calle Falsa 123", "123456789"));
-            aListaClientes.Add(new Cliente(2, "María", "Gómez", "Avenida Siempre Viva 456", "987654321"));
+            //aListaProductos.Add(new Producto(1, "Producto 1", "Tipo A", 10, 100.0));
+            //aListaProductos.Add(new Producto(2, "Producto 2", "Tipo B", 5, 200.0));
+            //aListaProductos.Add(new Producto(3, "Producto 3", "Tipo A", 8, 150.0));
+            //// Cargar clientes
+            //aListaClientes.Add(new Cliente(1, "Juan", "Pérez", "Calle Falsa 123", "123456789"));
+            //aListaClientes.Add(new Cliente(2, "María", "Gómez", "Avenida Siempre Viva 456", "987654321"));
         }
     }
 }
