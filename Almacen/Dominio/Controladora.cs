@@ -19,6 +19,7 @@ namespace Almacen.Dominio
 
         public List<Producto> ListarProductos()
         {
+            aListaProductos = Persistencia.ListaProductos();
             return aListaProductos;
         }
         public Producto BuscarProducto(int pId)
@@ -37,8 +38,11 @@ namespace Almacen.Dominio
             Producto ComparoProducto = BuscarProducto(pProducto.Id);
             if(ComparoProducto == null)
             {
-                aListaProductos.Add(pProducto);
-                return true;
+                if (Persistencia.AltaProducto(pProducto))
+                {
+                    aListaProductos.Add(pProducto);
+                    return true;
+                }
             }
             return false;
         }
@@ -47,8 +51,11 @@ namespace Almacen.Dominio
             Producto ProductoAEliminar = BuscarProducto(pId);
             if(ProductoAEliminar != null)
             {
-                aListaProductos.Remove(ProductoAEliminar);
-                return true;
+                if (Persistencia.BajaProducto(pId))
+                {
+                    aListaProductos.Remove(ProductoAEliminar);
+                    return true;
+                }
             }
             return false;
         }
@@ -104,8 +111,11 @@ namespace Almacen.Dominio
             Cliente ClienteAEliminar = BuscarCliente(pId);
             if (ClienteAEliminar != null)
             {
-                aListaClientes.Remove(ClienteAEliminar);
-                return true;
+                if (Persistencia.BajaCliente(pId))
+                {
+                    aListaClientes.Remove(ClienteAEliminar);
+                    return true;
+                }
             }
             return false;
         }

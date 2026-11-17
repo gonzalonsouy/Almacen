@@ -27,6 +27,27 @@ namespace Almacen.Persistencia
         }
         #endregion
 
-        
+        #region " Productos "
+        public List<Producto> ListaProductos()
+        {
+            return new PProducto().ListaProductos();
+        }
+        public bool AltaProducto(Producto mProducto)
+        {
+            return new PProducto().Alta(mProducto);
+        }
+        public bool BajaProducto(int pId)
+        {
+            return new PProducto().Baja(pId);
+        }
+        public bool ModificarProducto(Producto mProducto)
+        {
+            return new PProducto().Modificar(mProducto);
+        }
+        public int ProximoProductoId()
+        {
+            return new PProducto().ProximoId();
+        }
+        #endregion
     }
 }
