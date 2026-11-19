@@ -46,7 +46,8 @@ namespace Almacen.Pages.PageVenta
         public void OnGet()
         {
             Venta = new Venta();
-            idLinea = 1;
+            Controladora unaControladora = new Controladora();
+            idLinea = unaControladora.ProximoIdLinea();
             CargarDatos();
         }
         private void CargarDatos()
@@ -55,6 +56,7 @@ namespace Almacen.Pages.PageVenta
             Clientes = unaControladora.ListarClientes();
             Productos = unaControladora.ListarProductos();
             LineasVenta = unaControladora.ListarLineasVenta();
+            Venta.Id = unaControladora.ProximoIdVenta();
         }  
         public IActionResult OnPostAgregarLinea()
         {

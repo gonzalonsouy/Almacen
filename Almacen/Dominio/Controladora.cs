@@ -144,8 +144,17 @@ namespace Almacen.Dominio
 
         #region Ventas
 
+        public int ProximoIdVenta()
+        {
+            return Persistencia.ProximoVentaId();
+        }
+        public int ProximoIdLinea()
+        {
+            return Persistencia.ProximoLineaId();
+        }
         public List<Venta> ListarVentas()
         {
+            aListaVentas = Persistencia.ListaVentas();
             return aListaVentas;
         }
         public List<LineaVenta> ListarLineasVenta()
@@ -178,10 +187,14 @@ namespace Almacen.Dominio
             Venta ComparoVenta = BuscarVenta(pVenta.Id);
             if (ComparoVenta == null)
             {
-                aListaVentas.Add(pVenta);
-                LimpiarLineasVenta();
-                return true;
+                if(Persistencia.AltaVenta(pVenta))
+                {
+                    aListaVentas.Add(pVenta);
+                    LimpiarLineasVenta();
+                    return true;
+                }
             }
+            LimpiarLineasVenta();
             return false;
         }
         public bool BajaVenta(int pId)
@@ -189,8 +202,11 @@ namespace Almacen.Dominio
             Venta VentaAEliminar = BuscarVenta(pId);
             if (VentaAEliminar != null)
             {
-                aListaVentas.Remove(VentaAEliminar);
-                return true;
+                if (Persistencia.BajaVenta(pId))
+                {
+                    aListaVentas.Remove(VentaAEliminar);
+                    return true;
+                }
             }
             return false;
         }
@@ -208,16 +224,11 @@ namespace Almacen.Dominio
         //    return false;
         //}
         #endregion
-
-        public void CargarDatosIniciales()
+        public void CargarListas()
         {
-            // Cargar productos
-            //aListaProductos.Add(new Producto(1, "Producto 1", "Tipo A", 10, 100.0));
-            //aListaProductos.Add(new Producto(2, "Producto 2", "Tipo B", 5, 200.0));
-            //aListaProductos.Add(new Producto(3, "Producto 3", "Tipo A", 8, 150.0));
-            //// Cargar clientes
-            //aListaClientes.Add(new Cliente(1, "Juan", "Pérez", "Calle Falsa 123", "123456789"));
-            //aListaClientes.Add(new Cliente(2, "María", "Gómez", "Avenida Siempre Viva 456", "987654321"));
+            ListarClientes();
+            ListarProductos();
+            ListarVentas();
         }
     }
 }

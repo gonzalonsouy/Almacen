@@ -9,7 +9,7 @@ namespace Almacen.Pages
         public void OnGet()
         {
             Controladora unaControladora = new Controladora();
-            unaControladora.CargarDatosIniciales();
+            unaControladora.CargarListas();
         }
     }
 }

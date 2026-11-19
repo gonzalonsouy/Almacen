@@ -19,14 +19,14 @@ namespace Almacen.Persistencia
 
             foreach (DataRow fila in datos.Tables[0].Rows)
             {
-                Venta unVenta = new Venta(
+                Venta unaVenta = new Venta(
                     int.Parse(fila[0].ToString()),
                     DateTime.Parse(fila[1].ToString()),
                     unaControladora.BuscarCliente(int.Parse(fila[2].ToString())),
                     ListaLineasVenta(int.Parse(fila[0].ToString())),
                     double.Parse(fila[3].ToString())
                     );
-                lista.Add(unVenta);
+                lista.Add(unaVenta);
             }
             return lista;
         }
@@ -52,33 +52,57 @@ namespace Almacen.Persistencia
             return lista;
         }
 
-        public bool Alta(Venta unVenta)
+        public bool Alta(Venta unaVenta)
         {
             string sql = "INSERT INTO venta (id, fecha, idCliente, total) "
-                + "VALUES (" + unVenta.Id + ",'" + unVenta.Fecha + "'," + unVenta.Cliente.Id + "," + unVenta.Total + ")";
+                + "VALUES (" + unaVenta.Id + ",'" + unaVenta.Fecha.ToShortDateString() + "'," + unaVenta.Cliente.Id + "," + unaVenta.Total + ")";
 
+            if (Conexion.Ejecutar(sql))
+            {
+                return AltaLineasVenta(unaVenta.LineasVenta, unaVenta.Id);
+            }
+            return false;
+        }
+        public bool AltaLineasVenta(List<LineaVenta> lineasVenta, int pIdVenta)
+        {
+            string sql = "";
+            foreach (LineaVenta unaLinea in lineasVenta)
+            {
+                sql += " INSERT INTO LineaVenta (id, idVenta, idProducto, cantidad, subtotal) "
+                    + "VALUES (" + unaLinea.Id + "," + pIdVenta + "," + unaLinea.Producto.Id + "," + unaLinea.Cantidad + "," + unaLinea.SubTotal + "); ";
+            }
             return Conexion.Ejecutar(sql);
         }
         public bool Baja(int pId)
         {
             string sql = "DELETE FROM venta WHERE id = " + pId.ToString();
-
+            string sqlLineas = "DELETE FROM LineaVenta WHERE idVenta = " + pId.ToString();
+            Conexion.Ejecutar(sqlLineas);
             return Conexion.Ejecutar(sql);
         }
-        public bool Modificar(Venta unVenta)
-        {
-            string sql = "UPDATE venta "
-                + "SET nombre = '" + unVenta.Nombre + "',"
-                + "apellido = '" + unVenta.Apellido + "',"
-                + "direccion = '" + unVenta.Direccion + "',"
-                + "telefono = '" + unVenta.Telefono + "' "
-                + "WHERE id = " + unVenta.Id.ToString();
+        //public bool Modificar(Venta unaVenta)
+        //{
+        //    string sql = "UPDATE venta "
+        //        + "SET nombre = '" + unaVenta.Nombre + "',"
+        //        + "apellido = '" + unaVenta.Apellido + "',"
+        //        + "direccion = '" + unaVenta.Direccion + "',"
+        //        + "telefono = '" + unaVenta.Telefono + "' "
+        //        + "WHERE id = " + unaVenta.Id.ToString();
 
-            return Conexion.Ejecutar(sql);
-        }
-        public int ProximoId()
+        //    return Conexion.Ejecutar(sql);
+        //}
+        public int ProximoIdVenta()
         {
             string sql = "SELECT (ISNULL(MAX(id),0)+1) FROM venta";
+            DataSet datos = Conexion.Consultar(sql);
+            DataRowCollection filas = datos.Tables[0].Rows;
+            var campo = filas[0];
+            int Id = int.Parse(campo[0].ToString());
+            return Id;
+        }
+        public int ProximoIdLinea()
+        {
+            string sql = "SELECT (ISNULL(MAX(id),0)+1) FROM LineaVenta";
             DataSet datos = Conexion.Consultar(sql);
             DataRowCollection filas = datos.Tables[0].Rows;
             var campo = filas[0];

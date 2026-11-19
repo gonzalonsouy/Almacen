@@ -49,5 +49,32 @@ namespace Almacen.Persistencia
             return new PProducto().ProximoId();
         }
         #endregion
+
+        #region " Ventas "
+        public List<Venta> ListaVentas()
+        {
+            return new PVenta().ListaVentas();
+        }
+        public bool AltaVenta(Venta mVenta)
+        {
+            return new PVenta().Alta(mVenta);
+        }
+        public bool BajaVenta(int pId)
+        {
+            return new PVenta().Baja(pId);
+        }
+        //public bool ModificarVenta(Venta mVenta)
+        //{
+        //    return new PVenta().Modificar(mVenta);
+        //}
+        public int ProximoVentaId()
+        {
+            return new PVenta().ProximoIdVenta();
+        }
+        public int ProximoLineaId()
+        {
+            return new PVenta().ProximoIdLinea();
+        }
+        #endregion
     }
 }
