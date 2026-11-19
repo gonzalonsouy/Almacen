@@ -17,6 +17,10 @@ namespace Almacen.Dominio
 
         #region Productos
 
+        public int ProximoIdProducto()
+        {
+            return Persistencia.ProximoProductoId();
+        }
         public List<Producto> ListarProductos()
         {
             aListaProductos = Persistencia.ListaProductos();
@@ -76,6 +80,10 @@ namespace Almacen.Dominio
 
         #region Clientes
 
+        public int ProximoIdCliente()
+        {
+            return Persistencia.ProximoClienteId();
+        }
         public List<Cliente> ListarClientes()
         {
             aListaClientes = Persistencia.ListaClientes();

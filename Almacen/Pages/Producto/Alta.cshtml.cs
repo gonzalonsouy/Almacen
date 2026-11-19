@@ -6,11 +6,12 @@ namespace Almacen.Pages.Producto
 {
     public class AltaModel : PageModel
     {
-        
         public string Mensaje { get; set; }
-        
+        public int id { get; set; } = 0;
         public void OnGet()
         {
+            Controladora unaControladora = new Controladora();
+            id = unaControladora.ProximoIdProducto();
         }
 
         public IActionResult OnPostAgregar()
