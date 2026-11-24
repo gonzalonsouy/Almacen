@@ -1,0 +1,72 @@
+﻿@page
+@model Almacen.Pages.PageReportes.VentasXClienteModel
+@{
+    ViewData["Title"] = "Ventas por Cliente";
+}
+<div>
+    <h1 class="display-4 text-center">Ventas por Cliente</h1>
+
+    <div class="row">
+        <form method="post">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <select class="form-control" id="idCliente" name="idCliente" asp-for="idCliente">
+                        <option value="">Seleccione un Cliente</option>
+                        @foreach (Dominio.Cliente unCliente in Model.Clientes)
+                        {
+                            <option value="@unCliente.Id">@unCliente.Nombre @unCliente.Apellido</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-success" type="submit" asp-page-handler="Listar">Listar</button>
+            </div>
+        </form>
+    </div>
+    
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Ventas != null && Model.Ventas.Any())
+            {
+                @foreach (Dominio.Venta unaVenta in Model.Ventas)
+                {
+                    <tr>
+                        <td>@unaVenta.Id</td>
+                        <td>@unaVenta.Fecha.ToShortDateString() </td>
+                        <td>@unaVenta.Cliente.Nombre @unaVenta.Cliente.Apellido</td>
+                        <td>@unaVenta.Total</td>
+                        <td>
+                            <div>
+                                <a class="btn btn-primary" asp-page="./Detalle" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No hay Ventas ingresadas
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

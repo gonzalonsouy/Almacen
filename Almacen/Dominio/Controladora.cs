@@ -210,6 +210,21 @@ namespace Almacen.Dominio
             }
             return false;
         }
+
+        public List<Venta> ListarVentasXCliente(int idCliente)
+        {
+            List<Venta> aListaVentasXCliente = new List<Venta>();
+            
+            foreach (Venta unaVenta in aListaVentas)
+            {
+                if (unaVenta.Cliente.Id == idCliente)
+                {
+                    aListaVentasXCliente.Add(unaVenta);
+                }
+            }
+            return aListaVentasXCliente;
+        }
+
         //public bool ModificarVenta(int pId, string pNombre, string pApellido, string pDireccion, string pTelefono)
         //{
         //    Venta VentaAModificar = BuscarVenta(pId);
