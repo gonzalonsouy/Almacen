@@ -33,8 +33,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="./PageVenta/Listar">Ventas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="./PageReportes/VentasXCliente">Ventas por Cliente</a>
+                        <li class="nav-item dropdown">
+                            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reportes
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/PageReportes/VentasXCliente">Ventas por Cliente</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/PageReportes/VentasXProducto">Productos Vendidos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/PageReportes/VentasXFecha">Ventas entre Fechas</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

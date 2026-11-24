@@ -1,0 +1,69 @@
+﻿@page
+@model Almacen.Pages.PageReportes.VentasXProductoModel
+@{
+    ViewData["Title"] = "Ventas por Producto";
+}
+<div>
+    <h1 class="display-4 text-center">Ventas por Producto</h1>
+
+    <form method="post">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="producto">Producto:</label>
+                    <select class="form-control" id="idProducto" name="idProducto" asp-for="idProducto">
+                        <option value="">Seleccione un Producto</option>
+                        @foreach (Dominio.Producto unProducto in Model.Productos)
+                        {
+                            <option value="@unProducto.Id">@unProducto.Nombre</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-success" style="margin-top: 23px;" type="submit" asp-page-handler="Listar">Listar</button>
+            </div>
+        </div>
+    </form>
+    
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Ventas != null && Model.Ventas.Any())
+            {
+                @foreach (Dominio.Venta unaVenta in Model.Ventas)
+                {
+                    <tr>
+                        <td>@unaVenta.Id</td>
+                        <td>@unaVenta.Fecha.ToShortDateString() </td>
+                        <td>@unaVenta.Cliente.Nombre @unaVenta.Cliente.Apellido</td>
+                        <td>@unaVenta.Total</td>
+                        <td>
+                            <div>
+                                <a class="btn btn-primary" asp-page="./Detalle" asp-route-id="@unaVenta.Id">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No hay Ventas ingresadas
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

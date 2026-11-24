@@ -225,6 +225,37 @@ namespace Almacen.Dominio
             return aListaVentasXCliente;
         }
 
+        public List<Venta> ListarVentasXFecha(DateTime pFechaDesde, DateTime pFechaHasta)
+        {
+            List<Venta> aListaVentasXFecha = new List<Venta>();
+
+            foreach (Venta unaVenta in aListaVentas)
+            {
+                if (unaVenta.Fecha >= pFechaDesde && unaVenta.Fecha <= pFechaHasta)
+                {
+                    aListaVentasXFecha.Add(unaVenta);
+                }
+            }
+            return aListaVentasXFecha;
+        }
+
+        public List<Venta> ListarVentasXProducto(int pProductoId)
+        {
+            List<Venta> aListaVentasXProducto = new List<Venta>();
+
+            foreach (Venta unaVenta in aListaVentas)
+            {
+                foreach(LineaVenta unaLinea in unaVenta.LineasVenta)
+                {
+                    if (unaLinea.Producto.Id == pProductoId)
+                    {
+                        aListaVentasXProducto.Add(unaVenta);
+                    }
+                }
+            }
+            return aListaVentasXProducto;
+        }
+
         //public bool ModificarVenta(int pId, string pNombre, string pApellido, string pDireccion, string pTelefono)
         //{
         //    Venta VentaAModificar = BuscarVenta(pId);
