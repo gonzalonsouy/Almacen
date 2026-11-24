@@ -9,6 +9,7 @@ namespace Almacen.Pages.PageReportes
         public List<Venta> Ventas { get; set; }
         public List<Cliente> Clientes { get; set; }
         [BindProperty] public int idCliente { get; set; }
+        public double TotalCliente { get; set; }
         public void OnGet()
         {
             Controladora unaControladora = new Controladora();
@@ -20,6 +21,10 @@ namespace Almacen.Pages.PageReportes
             if (idCliente != 0)
             {
                 Ventas = unaControladora.ListarVentasXCliente(idCliente);
+                foreach (Venta unaVenta in Ventas)
+                {
+                    TotalCliente += unaVenta.Total;
+                }
             }
             else
             {

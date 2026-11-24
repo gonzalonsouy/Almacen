@@ -9,6 +9,8 @@ namespace Almacen.Pages.PageReportes
         public List<Venta> Ventas { get; set; }
         public List<Dominio.Producto> Productos { get; set; }
         [BindProperty] public int idProducto { get; set; }
+        public int CantProductos { get; set; }
+        public double TotalProducto { get; set; }
         public void OnGet()
         {
             Controladora unaControladora = new Controladora();
@@ -20,6 +22,14 @@ namespace Almacen.Pages.PageReportes
             if (idProducto != 0)
             {
                 Ventas = unaControladora.ListarVentasXProducto(idProducto);
+                foreach (Venta unaVenta in Ventas)
+                {
+                    foreach (LineaVenta unaLinea in unaVenta.LineasVenta)
+                    {
+                        CantProductos += unaLinea.Cantidad;
+                        TotalProducto += unaLinea.SubTotal * unaLinea.Cantidad;
+                    }
+                }
             }
             else
             {

@@ -9,6 +9,7 @@ namespace Almacen.Pages.PageReportes
         public List<Venta> Ventas { get; set; }
         [BindProperty] public DateTime fechaDesde { get; set; }
         [BindProperty] public DateTime fechaHasta { get; set; }
+        public double TotalVendido { get; set; }
         public void OnGet()
         {
             fechaDesde = DateTime.Now.AddDays(-7); // Establecer fechaDesde como 7 días antes de la fecha actual
@@ -18,6 +19,10 @@ namespace Almacen.Pages.PageReportes
         {
             Controladora unaControladora = new Controladora();
             Ventas = unaControladora.ListarVentasXFecha(fechaDesde, fechaHasta);
+            foreach (Venta unaVenta in Ventas)
+            {
+                TotalVendido += unaVenta.Total;
+            }
             return Page();
         }
     }
