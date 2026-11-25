@@ -65,20 +65,27 @@ namespace Almacen.Pages.PageVenta
             Dominio.Producto unProducto = unaControladora.BuscarProducto(idProducto);
             if (unProducto != null)
             {
-                LineaVenta nuevaLinea = new LineaVenta(idLinea, unProducto, Cantidad, SubTotal);
-                unaControladora.AltaLineaVenta(nuevaLinea);
-                Total += SubTotal;
-                idLinea+=1;
-                idProducto = 0;
-                Precio = 0;
-                Cantidad = 0;
-                SubTotal = 0;
+                if(unProducto.Stock < Cantidad)
+                {
+                    Mensaje = "No hay suficiente stock disponible.";
+                }
+                else
+                {
+                    LineaVenta nuevaLinea = new LineaVenta(idLinea, unProducto, Cantidad, SubTotal);
+                    unaControladora.AltaLineaVenta(nuevaLinea);
+                    Total += SubTotal;
+                    idLinea += 1;
+                    idProducto = 0;
+                    Precio = 0;
+                    Cantidad = 0;
+                    SubTotal = 0;
 
-                ModelState.Remove("idLinea");
-                ModelState.Remove("idProducto");
-                ModelState.Remove("Precio");
-                ModelState.Remove("Cantidad");
-                ModelState.Remove("SubTotal");
+                    ModelState.Remove("idLinea");
+                    ModelState.Remove("idProducto");
+                    ModelState.Remove("Precio");
+                    ModelState.Remove("Cantidad");
+                    ModelState.Remove("SubTotal");
+                }
             }
             else
             {

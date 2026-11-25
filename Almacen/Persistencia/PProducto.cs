@@ -1,5 +1,6 @@
-﻿using System.Data;
-using Almacen.Dominio;
+﻿using Almacen.Dominio;
+using System.Collections;
+using System.Data;
 
 namespace Almacen.Persistencia
 {
@@ -43,14 +44,22 @@ namespace Almacen.Persistencia
 
             return Conexion.Ejecutar(sql);
         }
-        public bool Modificar(Producto unProducto)
+        public bool Modificar(int pId, string pNombre, string pTipo, int pStock, double pPrecio)
         {
             string sql = "UPDATE producto "
-                + "SET nombre = '" + unProducto.Nombre + "',"
-                + "tipo = '" + unProducto.Tipo + "',"
-                + "stock = " + unProducto.Stock + ","
-                + "precio = " + unProducto.Precio + " "
-                + "WHERE id = " + unProducto.Id.ToString();
+                + "SET nombre = '" + pNombre + "',"
+                + "tipo = '" + pTipo + "',"
+                + "stock = " + pStock + ","
+                + "precio = " + pPrecio + " "
+                + "WHERE id = " + pId.ToString();
+
+            return Conexion.Ejecutar(sql);
+        }
+        public bool DescontarStock(int pId, int pCantidad)
+        {
+            string sql = "UPDATE producto "
+                + "SET stock = stock - " + pCantidad + " "
+                + "WHERE id = " + pId.ToString();
 
             return Conexion.Ejecutar(sql);
         }

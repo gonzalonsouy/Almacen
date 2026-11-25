@@ -17,9 +17,9 @@ namespace Almacen.Persistencia
         {
             return new PCliente().Baja(pId);
         }
-        public bool ModificarCliente(Cliente mCliente)
+        public bool ModificarCliente(int pId, string pNombre, string pApellido, string pDireccion, string pTelefono)
         {
-            return new PCliente().Modificar(mCliente);
+            return new PCliente().Modificar(pId, pNombre, pApellido, pDireccion, pTelefono);
         }
         public int ProximoClienteId()
         {
@@ -40,9 +40,13 @@ namespace Almacen.Persistencia
         {
             return new PProducto().Baja(pId);
         }
-        public bool ModificarProducto(Producto mProducto)
+        public bool ModificarProducto(int pId, string pNombre, string pTipo, int pStock, double pPrecio)
         {
-            return new PProducto().Modificar(mProducto);
+            return new PProducto().Modificar(pId, pNombre, pTipo, pStock, pPrecio);
+        }
+        public bool DescontarStock(int pId, int pCantidad)
+        {
+            return new PProducto().DescontarStock(pId, pCantidad);
         }
         public int ProximoProductoId()
         {

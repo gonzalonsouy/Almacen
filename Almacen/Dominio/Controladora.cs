@@ -1,4 +1,5 @@
 ﻿using Almacen.Persistencia;
+using System.Collections;
 
 namespace Almacen.Dominio
 {
@@ -68,11 +69,27 @@ namespace Almacen.Dominio
             Producto ProductoAModificar = BuscarProducto(pId);
             if(ProductoAModificar != null)
             {
-                ProductoAModificar.Nombre = pNombre;
-                ProductoAModificar.Tipo = pTipo;
-                ProductoAModificar.Stock = pStock;
-                ProductoAModificar.Precio = pPrecio;
-                return true;
+                if(Persistencia.ModificarProducto(pId, pNombre, pTipo, pStock, pPrecio))
+                {
+                    ProductoAModificar.Nombre = pNombre;
+                    ProductoAModificar.Tipo = pTipo;
+                    ProductoAModificar.Stock = pStock;
+                    ProductoAModificar.Precio = pPrecio;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool DescontarStock(int pId, int pCantidad)
+        {
+            Producto ProductoADescontar = BuscarProducto(pId);
+            if (ProductoADescontar != null)
+            {
+                if (Persistencia.DescontarStock(pId, pCantidad))
+                {
+                    ProductoADescontar.Stock -= pCantidad;
+                    return true;
+                }
             }
             return false;
         }
@@ -132,11 +149,14 @@ namespace Almacen.Dominio
             Cliente ClienteAModificar = BuscarCliente(pId);
             if (ClienteAModificar != null)
             {
-                ClienteAModificar.Nombre = pNombre;
-                ClienteAModificar.Apellido = pApellido;
-                ClienteAModificar.Direccion = pDireccion;
-                ClienteAModificar.Telefono = pTelefono;
-                return true;
+                if(Persistencia.ModificarCliente(pId, pNombre, pApellido, pDireccion, pTelefono))
+                {
+                    ClienteAModificar.Nombre = pNombre;
+                    ClienteAModificar.Apellido = pApellido;
+                    ClienteAModificar.Direccion = pDireccion;
+                    ClienteAModificar.Telefono = pTelefono;
+                    return true;
+                }
             }
             return false;
         }

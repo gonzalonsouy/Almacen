@@ -66,12 +66,18 @@ namespace Almacen.Persistencia
         public bool AltaLineasVenta(List<LineaVenta> lineasVenta, int pIdVenta)
         {
             string sql = "";
+            string sqlStock = "";
             foreach (LineaVenta unaLinea in lineasVenta)
             {
                 sql += " INSERT INTO LineaVenta (id, idVenta, idProducto, cantidad, subtotal) "
                     + "VALUES (" + unaLinea.Id + "," + pIdVenta + "," + unaLinea.Producto.Id + "," + unaLinea.Cantidad + "," + unaLinea.SubTotal + "); ";
+                sqlStock += " UPDATE Producto SET stock = stock - " + unaLinea.Cantidad + " WHERE id = " + unaLinea.Producto.Id + "; ";
             }
-            return Conexion.Ejecutar(sql);
+            if (Conexion.Ejecutar(sql))
+            {
+                return Conexion.Ejecutar(sqlStock);
+            }
+            return false;
         }
         public bool Baja(int pId)
         {

@@ -43,14 +43,14 @@ namespace Almacen.Persistencia
 
             return Conexion.Ejecutar(sql);
         }
-        public bool Modificar(Cliente unCliente)
+        public bool Modificar(int pId, string pNombre, string pApellido, string pDireccion, string pTelefono)
         {
             string sql = "UPDATE cliente " 
-                + "SET nombre = '" + unCliente.Nombre + "',"
-                + "apellido = '" + unCliente.Apellido + "',"
-                + "direccion = '" + unCliente.Direccion + "',"
-                + "telefono = '" + unCliente.Telefono + "' "
-                + "WHERE id = " + unCliente.Id.ToString();
+                + "SET nombre = '" + pNombre + "',"
+                + "apellido = '" + pApellido + "',"
+                + "direccion = '" + pDireccion + "',"
+                + "telefono = '" + pTelefono + "' "
+                + "WHERE id = " + pId.ToString();
 
             return Conexion.Ejecutar(sql);
         }
